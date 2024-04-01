@@ -2,15 +2,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Park {
-    private final List<ParkSide> parkSides;
+    private final List<ParkSide> PARK_SIDES;
 
     public Park() {
 
-        parkSides = new ArrayList<>();
+        PARK_SIDES = new ArrayList<>();
     }
 
     public void addParkSide(String name, String workingTime, double price) {
-        parkSides.add(new ParkSide(name, workingTime, price));
+        PARK_SIDES.add(new ParkSide(name, workingTime, price));
     }
     public static void myPark(){
         Park park = new Park();
@@ -20,16 +20,16 @@ public class Park {
         park.addParkSide("Цепная карусель", "10:00 - 19:00",  150.0);
         park.addParkSide("Веревочный парк", "10:00 - 19:00",  100.0);
 
-        for (Park.ParkSide parkSide : park.parkSides) {
+        for (Park.ParkSide parkSide : park.PARK_SIDES) {
             System.out.println(parkSide);
         }
 
     }
 
     public static class ParkSide {
-        private final String name;
-        private final String workingTime;
-        private final double price;
+        private String name;
+        private String workingTime;
+        private double price;
 
         public ParkSide(String name, String workingTime, double price) {
             this.name = name;

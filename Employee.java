@@ -1,11 +1,11 @@
 public class Employee {
 
-    private final String fullName;
-    private final String position;
-    private final String email;
-    private final String phone;
-    private final double salary;
-    private final int age;
+    private String fullName;
+    private String position;
+    private String email;
+    private String phone;
+    private double salary;
+    private int age;
 
     public Employee(String fullName, String position, String email, String phone, int salary, int age){
         this.fullName = fullName;
