@@ -18,5 +18,7 @@ public class Main {
         System.out.println("Задание 12: " + Arrays.toString(Lesson1.integerMultiplier));
         Lesson1.task13();
         System.out.println("Задание 14: " + Arrays.toString(Lesson1.finishArray(15,30)));
+        Employee.printInformationOfMyEmployee();
+        Park.myPark();
     }
 }
