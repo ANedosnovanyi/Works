@@ -2,23 +2,26 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        Lesson1.printThreeWords();
-        Lesson1.checkSumSign();
-        Lesson1.printColor();
-        Lesson1.compareNumbers();
-        System.out.println("Результат задания 5: " + Lesson1.sumNumbers(8,6));
-        Lesson1.nullNumbers(6);
-        System.out.println(Lesson1.numberReset(-41));
-        Lesson1.testArgs("Задание 8 выполнено!",8);
-        System.out.println(Lesson1.leapYear(2001));
-        Lesson1.task10();
-        Lesson1.changeArray(Lesson1.array);
-        System.out.println("Задание 11: " + Arrays.toString(Lesson1.array));
-        Lesson1.multiplyNumber(Lesson1.integerMultiplier);
-        System.out.println("Задание 12: " + Arrays.toString(Lesson1.integerMultiplier));
-        Lesson1.task13();
-        System.out.println("Задание 14: " + Arrays.toString(Lesson1.finishArray(15,30)));
-        Employee.printInformationOfMyEmployee();
-        Park.myPark();
+        Animal cat = new Cat();
+        cat.run(200);
+        cat.swim(50);
+        Animal dog = new Dog();
+        Animal dog2 = new Dog();
+        dog.run(300);
+        dog.swim(10);
+        Cat.myCats();
+        Animal cat1 = new Cat();
+        System.out.println("Общее количество животных: " + Animal.getAnimalCount());
+        System.out.println("Количество котов: " + Cat.getCatCount());
+        System.out.println("Количество собак: " + Dog.getDogCount());
+
+        Circle circle = new Circle(12.0, "Red", "Black");
+        Rectangle rectangle = new Rectangle("Black", "Blue",8 , 6);
+        Triangle triangle = new Triangle("Black", "Yellow", 5.0,8 , 10);
+
+        GeometricFigure.printShapeInfo(circle);
+        GeometricFigure.printShapeInfo(rectangle);
+        GeometricFigure.printShapeInfo(triangle);
+
     }
 }
