@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Lesson5 {
 
-    private static String[] wordsArray = {
+    private final static String[] WORDS_ARRAY = {
             "Apatity", "Moskow", "Murmansk", "Vladivostok", "Moskow", "Apatity",
             "Petrozavodsk", "Olenegorsk", "Kaliningrad", "Lissabon", "London", "Kursk",
             "Berlin", "Kursk", "Belgorod", "Kirovsk", "Apatity", "Madrid"
@@ -26,6 +26,6 @@ public class Lesson5 {
     }
 
     public static void uniqueWords() {
-        uniqueWords(wordsArray);
+        uniqueWords(WORDS_ARRAY);
     }
 }
