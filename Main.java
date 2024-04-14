@@ -1,13 +1,20 @@
 public class Main {
     public static void main(String[] args) {
-        printThreeWords();
+        Lesson5 lesson5 = new Lesson5();
+        Lesson5.uniqueWords(lesson5.wordsArray);
 
+        PhoneBook phoneBook = new PhoneBook();
+        phoneBook.add("Недоснованый", "+79021341088");
+        phoneBook.add("Курильцев", "+79811003050");
+        phoneBook.add("Иванов", "+79113236876");
+        phoneBook.add("Недоснованый", "+79813028000");
+        phoneBook.add("Курильцев","+79318002948");
 
+        PhoneBook.printNumbersForLastName(phoneBook, "Недоснованый");
+        PhoneBook.printNumbersForLastName(phoneBook, "Курильцев");
+        PhoneBook.printNumbersForLastName(phoneBook, "Иванов");
 
     }
-    public static void printThreeWords() {
-        System.out.println("Orange");
-        System.out.println("Banana");
-        System.out.println("Apple");
-    }
+
+
 }
