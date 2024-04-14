@@ -1,7 +1,9 @@
+import Lesson_5.Lesson5;
+import Lesson_5.PhoneBook;
+
 public class Main {
     public static void main(String[] args) {
-        Lesson5 lesson5 = new Lesson5();
-        Lesson5.uniqueWords(lesson5.wordsArray);
+        Lesson5.uniqueWords();
 
         PhoneBook phoneBook = new PhoneBook();
         phoneBook.add("Недоснованый", "+79021341088");

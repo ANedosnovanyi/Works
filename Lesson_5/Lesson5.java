@@ -1,8 +1,10 @@
+package Lesson_5;
+
 import java.util.*;
 
 public class Lesson5 {
 
-    public static String[] wordsArray = {
+    private static String[] wordsArray = {
             "Apatity", "Moskow", "Murmansk", "Vladivostok", "Moskow", "Apatity",
             "Petrozavodsk", "Olenegorsk", "Kaliningrad", "Lissabon", "London", "Kursk",
             "Berlin", "Kursk", "Belgorod", "Kirovsk", "Apatity", "Madrid"
@@ -21,5 +23,9 @@ public class Lesson5 {
         for (String uniqueWord : uniqueWords) {
             System.out.println(uniqueWord + " - " + wordCounts.get(uniqueWord) + " раз");
         }
+    }
+
+    public static void uniqueWords() {
+        uniqueWords(wordsArray);
     }
 }
