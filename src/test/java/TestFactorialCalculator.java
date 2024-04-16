@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@DisplayName("Тестируем класс FactorialCalculator")
 public class TestFactorialCalculator {
 
     public   FactorialCalculator factorialCalculator;
@@ -19,7 +20,7 @@ public class TestFactorialCalculator {
         int number = 12;
         long expectedFactorial = 479001600;
         long actualFactorial = FactorialCalculator.calculateFactorial(number);
-        Assertions.assertEquals(actualFactorial, expectedFactorial, "Факториал для положительного числа " + number);
+        Assertions.assertEquals(actualFactorial, expectedFactorial);
     }
 
     @Test
@@ -32,10 +33,18 @@ public class TestFactorialCalculator {
     }
 
     @Test
+    @DisplayName("Тест с использованием числа 1")
+    void testCalculateFactorialWith1() {
+        int number = 1;
+        long expectedFactorial = 1;
+        long actualFactorial = FactorialCalculator.calculateFactorial(number);
+        Assertions.assertEquals(actualFactorial, expectedFactorial);
+    }
+
+    @Test
     @DisplayName("Тест с отрицательным числом")
     void testCalculateFactorialWithNegativeNumber() {
         int number = -10;
         assertThrows(IllegalArgumentException.class, () -> FactorialCalculator.calculateFactorial(number));
     }
-
 }
