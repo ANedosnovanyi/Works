@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeMethod;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MtsTestContinue {
+public class TestMtsContinue {
     WebDriver driver;
 
     @BeforeMethod
@@ -50,10 +50,10 @@ public class MtsTestContinue {
         WebElement field = driver.findElement(By.xpath(fieldXpath));
         String actualPlaceholder = field.getAttribute("placeholder");
         assert actualPlaceholder.equals(expectedPlaceholder) : "Ожидаемая надпись: " + expectedPlaceholder + ", Фактическая надпись: " + actualPlaceholder;
-        System.out.println(actualPlaceholder);
     }
 
-    @DisplayName("Заполнение полей для варианта 'Услуги связи' и проверка работы кнопки «Продолжить»")
+
+    @DisplayName("Заполнение полей для варианта 'Услуги связи' и проверка реквизитов во всплывающем окне»")
     @Test
     void testRechargeBlockContinueButton() {
         WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id='connection-phone']"));
@@ -69,39 +69,41 @@ public class MtsTestContinue {
         continueButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='bepaid-app']")));
+        WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='bepaid-iframe']")));
 
-        //WebElement cardNumberField = dialog.findElement(By.xpath("//*[@id=\"cc-number\"]"));
+        driver.switchTo().frame(dialog);
+
+        WebElement cardNumberLabel = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='ng-tns-c45-1 ng-star-inserted']")));
+
+        WebElement cardNumberLabel2 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'ng-star-inserted') and contains(., 'Срок действия') and not(contains(., 'CVC'))]")));
+        WebElement cardNumberLabel3 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'ng-star-inserted') and contains(., 'Имя держателя (как на карте)')]")));
+
+        WebElement cardNumberLabel4 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(@class, 'ng-star-inserted') and contains(., 'CVC') and not(contains(., 'Срок действия'))]")));
+
+        WebElement cardNumberLabel5 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(., '100.00 BYN') and not(contains(., 'Оплата:'))]")));
+
+        WebElement cardNumberLabel6 = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), '100.00 BYN')]")));
+
+        WebElement cardNumberLabel7 = driver.findElement(By.xpath("//*[contains(text(), '375297777777')]"));
+
         String expectedTitle = "Номер карты";
-        System.out.println(dialog.getText());
-        assert dialog.isDisplayed();
-        assert dialog.getText().equals(expectedTitle);
+        String expectedTitle2 = "Срок действия";
+        String expectedTitle3 = "Имя держателя (как на карте)";
+        String expectedTitle4 = "CVC";
+        String expectedTitle5 = "100.00 BYN";
+
+        assert cardNumberLabel.getText().equals(expectedTitle);
+        assert cardNumberLabel2.getText().equals(expectedTitle2);
+        assert cardNumberLabel3.getText().equals(expectedTitle3);
+        assert cardNumberLabel4.getText().equals(expectedTitle4);
+        assert cardNumberLabel5.getText().equals(expectedTitle5);
+        assert cardNumberLabel6.getText().equals(expectedTitle5);
+        Assertions.assertTrue(cardNumberLabel7.isDisplayed(), "Элемент не отображается");
     }
 
-    @Test
-    void testWindow(){
-        WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id='connection-phone']"));
-        phoneNumberField.sendKeys("297777777");
-
-        WebElement sumField = driver.findElement(By.xpath("//*[@id='connection-sum']"));
-        sumField.sendKeys("100");
-
-        WebElement emailField = driver.findElement(By.xpath("//*[@id='connection-email']"));
-        emailField.sendKeys("info1234@gmail.com");
-
-        WebElement continueButton = driver.findElement(By.xpath("//*[@id='pay-connection']/button"));
-        continueButton.click();
-
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='bepaid-app']")));
-        dialog.findElement(By.xpath("//*[contains(text(),'Оплата: Услуги связи')]']"));
-
-    }
-
-    @DisplayName("Проверка наличия логотипов платёжных систем в окне 'Услуги связи'")
+    @DisplayName("Проверка наличия логотипов платёжных систем во всплывающем окне при выборе 'Услуги связи'")
     @Test
     void testRechargeBlockPaymentSystem() {
-
         WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id='connection-phone']"));
         phoneNumberField.sendKeys("297777777");
 
@@ -115,19 +117,19 @@ public class MtsTestContinue {
         continueButton.click();
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='bepaid-app']")));
-        dialog.findElement(By.xpath("/html/body/app-root//img[2]"));
-        List<WebElement> paymentIcons = dialog.findElements(By.xpath(".//img[contains(@class, 'payment-icon')]"));
-        Assertions.assertTrue(paymentIcons.size() > 0, "Иконки платёжных систем не найдены");
-    }
+        WebElement dialog = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class='bepaid-iframe']")));
 
+        driver.switchTo().frame(dialog);
+
+        List<WebElement> paymentSystemLogos = driver.findElements(By.xpath("//app-card-page//img[contains(@src, 'payment')]"));
+
+        assert !paymentSystemLogos.isEmpty();
+    }
 
     @DisplayName("Проверка полей варианта оплаты 'Услуги связи' ")
     @Test
     void testValidationForServicePayment() {
-        driver.get("https://www.mts.by/");
 
-        // Нажимаем на кнопку выбора оплаты услуг связи
         WebElement servicePaymentButton = driver.findElement(By.xpath("//*[@id='pay-section']//button/span[1]"));
         servicePaymentButton.click();
 
@@ -137,7 +139,6 @@ public class MtsTestContinue {
             e.printStackTrace();
         }
 
-        // Проверяем надписи в незаполненных полях
         checkEmptyFieldPlaceholder("//*[@id='connection-sum']", "Сумма");
         checkEmptyFieldPlaceholder("//*[@id='connection-email']", "E-mail для отправки чека");
         checkEmptyFieldPlaceholder("//*[@id='connection-phone']", "Номер телефона");
@@ -146,9 +147,7 @@ public class MtsTestContinue {
     @DisplayName("Проверка полей варианта оплаты 'Домашний интернет'")
     @Test
     void testValidationForServicePayment2() {
-        driver.get("https://www.mts.by/");
 
-        // Нажимаем на кнопку выбора оплаты услуг связи
         WebElement servicePaymentButton = driver.findElement(By.xpath("//*[@id='pay-section']//button/span[1]"));
         servicePaymentButton.click();
 
@@ -161,7 +160,6 @@ public class MtsTestContinue {
             e.printStackTrace();
         }
 
-        // Проверяем надписи в незаполненных полях
         checkEmptyFieldPlaceholder("//*[@id='connection-sum']", "Сумма");
         checkEmptyFieldPlaceholder("//*[@id='connection-email']", "E-mail для отправки чека");
         checkEmptyFieldPlaceholder("//*[@id='connection-phone']", "Номер телефона");
@@ -170,9 +168,7 @@ public class MtsTestContinue {
     @DisplayName("Проверка полей варианта оплаты 'Рассрочка'")
     @Test
     void testValidationForServicePayment3() {
-        driver.get("https://www.mts.by/");
 
-        // Нажимаем на кнопку выбора оплаты услуг связи
         WebElement servicePaymentButton = driver.findElement(By.xpath("//*[@id='pay-section']//button/span[1]"));
         servicePaymentButton.click();
 
@@ -193,9 +189,7 @@ public class MtsTestContinue {
     @DisplayName("Проверка полей варианта оплаты 'Задолженность'")
     @Test
     void testValidationForServicePayment4() {
-        driver.get("https://www.mts.by/");
 
-        // Нажимаем на кнопку выбора оплаты услуг связи
         WebElement servicePaymentButton = driver.findElement(By.xpath("//*[@id='pay-section']//button/span[1]"));
         servicePaymentButton.click();
 
