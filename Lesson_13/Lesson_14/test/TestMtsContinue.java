@@ -1,4 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -6,21 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.BeforeMethod;
-
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+@DisplayName("Тестирование полей сайта https://www.mts.by")
 public class TestMtsContinue {
     WebDriver driver;
-
-    @BeforeMethod
-    void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
-        driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
-    }
 
     @BeforeAll
     static void setupAll() {
@@ -54,6 +47,7 @@ public class TestMtsContinue {
 
 
     @DisplayName("Заполнение полей для варианта 'Услуги связи' и проверка реквизитов во всплывающем окне»")
+    @Story("Test-1")
     @Test
     void testRechargeBlockContinueButton() {
         WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id='connection-phone']"));
@@ -102,6 +96,8 @@ public class TestMtsContinue {
     }
 
     @DisplayName("Проверка наличия логотипов платёжных систем во всплывающем окне при выборе 'Услуги связи'")
+    @Attachment
+    @Story("Test-2")
     @Test
     void testRechargeBlockPaymentSystem() {
         WebElement phoneNumberField = driver.findElement(By.xpath("//*[@id='connection-phone']"));
@@ -127,6 +123,7 @@ public class TestMtsContinue {
     }
 
     @DisplayName("Проверка полей варианта оплаты 'Услуги связи'")
+    @Story("Test-3")
     @Test
     void testValidationForServicePayment() {
 
@@ -145,6 +142,7 @@ public class TestMtsContinue {
     }
 
     @DisplayName("Проверка полей варианта оплаты 'Домашний интернет'")
+    @Story("Test-4")
     @Test
     void testValidationForServicePayment2() {
 
@@ -166,6 +164,7 @@ public class TestMtsContinue {
     }
 
     @DisplayName("Проверка полей варианта оплаты 'Рассрочка'")
+    @Step("Test-5")
     @Test
     void testValidationForServicePayment3() {
 
@@ -187,6 +186,7 @@ public class TestMtsContinue {
     }
 
     @DisplayName("Проверка полей варианта оплаты 'Задолженность'")
+    @Story("Test-6")
     @Test
     void testValidationForServicePayment4() {
 
