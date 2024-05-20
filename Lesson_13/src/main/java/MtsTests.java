@@ -60,6 +60,7 @@ public class MtsTests {
     @Test
     void testRechargeBlockMoreDetails() {
         WebElement moreDetailsLink = driver.findElement(By.xpath("//*[@id=\"pay-section\"]/div/div/div[2]/section/div/a"));
+
         assert moreDetailsLink.isDisplayed();
         moreDetailsLink.click();
         String expectedUrl = "https://www.mts.by/help/poryadok-oplaty-i-bezopasnost-internet-platezhey/";

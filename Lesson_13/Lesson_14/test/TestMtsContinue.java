@@ -126,7 +126,7 @@ public class TestMtsContinue {
         assert !paymentSystemLogos.isEmpty();
     }
 
-    @DisplayName("Проверка полей варианта оплаты 'Услуги связи' ")
+    @DisplayName("Проверка полей варианта оплаты 'Услуги связи'")
     @Test
     void testValidationForServicePayment() {
 
